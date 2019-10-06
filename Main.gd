@@ -9,7 +9,7 @@ export var pulse_speed = 1.0
 onready var light = get_node("Light")
 var can_press = false
 var success = false
-var qte = ["a","b","x","y"]
+var level_finished = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
     randomize()
@@ -83,4 +83,14 @@ func qte_success():
         level_end()
         
 func level_end():
-    $QTE.queue_free()
+	var new_door_progress = $Door.door_progress + 1
+	$Door.change_door_progress(new_door_progress)
+	if new_door_progress < $Door.door_numbers:
+		$QTE.reset_qte()
+	else:
+		$QTE.queue_free()
+		level_finished = true
+
+func _on_Door_body_entered(body):
+	if body.name == "Player" and level_finished:
+		get_tree().quit()
