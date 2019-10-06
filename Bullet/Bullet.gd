@@ -6,5 +6,5 @@ func _on_Visibility_screen_exited():
     queue_free()
 
 func _process(delta):
-    var velocity = Vector2(1 ,0)
-    position += velocity * speed * delta
+    var velocity = Vector2(speed ,0).rotated(rotation)
+    position += velocity * delta

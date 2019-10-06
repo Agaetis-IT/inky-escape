@@ -1,5 +1,7 @@
 extends Node
 
+export (PackedScene) var Bullet
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -24,6 +26,34 @@ func _ready():
 func _on_PulseTimer_timeout():
     can_press = true
     $PulseTimeTimer.start()
+    
+    # first bullet
+    # Choose a random location on Path2D.
+    $BulletPath/BulletSpawnLocation1.set_offset(randi())
+    # Create a Bullet instance and add it to the scene.
+    var bullet1 = Bullet.instance()
+    add_child(bullet1)
+    # Set the bullet's direction perpendicular to the path direction.
+    var direction1 = $BulletPath/BulletSpawnLocation1.rotation + PI / 2
+    # Set the bullet's position to a random location.
+    bullet1.position = $BulletPath/BulletSpawnLocation1.position
+    # Add some randomness to the direction.
+    direction1 += rand_range(-PI / 4, PI / 4)
+    bullet1.rotation = direction1
+    
+    # second bullet
+    # Choose a random location on Path2D.
+    $BulletPath/BulletSpawnLocation2.set_offset(randi())
+    # Create a Bullet instance and add it to the scene.
+    var bullet2 = Bullet.instance()
+    add_child(bullet2)
+    # Set the bullet's direction perpendicular to the path direction.
+    var direction2 = $BulletPath/BulletSpawnLocation2.rotation + PI / 2
+    # Set the bullet's position to a random location.
+    bullet2.position = $BulletPath/BulletSpawnLocation2.position
+    # Add some randomness to the direction.
+    direction2 += rand_range(-PI / 4, PI / 4)
+    bullet2.rotation = direction2
 
 func _on_PulseTimeTimer_timeout():
     can_press = false
