@@ -1,14 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=2]
-[ext_resource path="res://QTE.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Turret/Turret.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=3]
+[ext_resource path="res://QTE.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Musics/90bpm-loop.wav" type="AudioStream" id=6]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1024.58, 5.65592, 0, 0, 0, 0, 1027.98, 598.915, 0, 0, 0, 0, 3.67328, 603.453, 0, 0, 0, 0, 3.67328, 5.65592 )
+}
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
+Bullet = ExtResource( 2 )
 pulse_speed = 0.666
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -22,7 +28,10 @@ color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 modulate = Color( 1, 0.560784, 0, 1 )
 position = Vector2( 512, 300 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PulseTimer" type="Timer" parent="."]
 
@@ -34,18 +43,28 @@ playback/repeat = true
 wait_time = 0.1
 one_shot = true
 
-[node name="QTE" parent="." instance=ExtResource( 3 )]
+[node name="QTE" parent="." instance=ExtResource( 4 )]
 position = Vector2( 117.604, 107.266 )
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 496.131, 356.636 )
-
-[node name="Turret" parent="." instance=ExtResource( 5 )]
-position = Vector2( 639.716, 266.225 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 521.203, 302.244 )
 stream = ExtResource( 6 )
 autoplay = true
+
+[node name="BulletPath" type="Path2D" parent="."]
+position = Vector2( 1.0006, 0 )
+scale = Vector2( 1.00111, 1 )
+curve = SubResource( 1 )
+
+[node name="BulletSpawnLocation1" type="PathFollow2D" parent="BulletPath"]
+position = Vector2( 1024.58, 5.65592 )
+rotation = 1.56504
+
+[node name="BulletSpawnLocation2" type="PathFollow2D" parent="BulletPath"]
+position = Vector2( 1024.58, 5.65592 )
+rotation = 1.56504
 [connection signal="timeout" from="PulseTimer" to="." method="_on_PulseTimer_timeout"]
 [connection signal="timeout" from="PulseTimeTimer" to="." method="_on_PulseTimeTimer_timeout"]
