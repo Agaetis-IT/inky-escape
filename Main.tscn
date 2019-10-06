@@ -3,9 +3,9 @@
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=3]
-[ext_resource path="res://Door/Door.tscn" type="PackedScene" id=4]
-[ext_resource path="res://QTE.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Door/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://QTE.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Musics/90bpm-loop.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -13,7 +13,7 @@ extents = Vector2( 512, 58.685 )
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1019.02, -1.45749, 0, 0, 0, 0, 1022.63, 601.413, 0, 0, 0, 0, 7.32004, 601.413, 0, 0, 0, 0, 2.80756, -0.554993 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1022.87, 103.452, 0, 0, 0, 0, 1022.87, 604.643, 0, 0, 0, 0, 0.932129, 604.252, 0, 0, 0, 0, 0.345398, 101.301 )
 }
 
 [node name="Main" type="Node"]
@@ -22,19 +22,23 @@ Bullet = ExtResource( 2 )
 pulse_speed = 0.666
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 2.90002
-margin_top = -5.69998
-margin_right = 1034.9
-margin_bottom = 606.3
-color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+margin_left = -17.0
+margin_top = -29.0
+margin_right = 1035.0
+margin_bottom = 609.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Light" type="Sprite" parent="."]
-modulate = Color( 1, 0.560784, 0, 1 )
-position = Vector2( 512, 296.39 )
-scale = Vector2( 2, 2 )
+modulate = Color( 0.168627, 0.819608, 0.988235, 1 )
+position = Vector2( 516.016, 355.217 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
 
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 513.837, 356.636 )
+
 [node name="Top Wall" type="StaticBody2D" parent="."]
+z_index = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Wall"]
 position = Vector2( 512, 40 )
@@ -45,9 +49,10 @@ margin_right = 1024.0
 margin_bottom = 100.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Door" parent="." instance=ExtResource( 4 )]
-position = Vector2( 512, 6.3175 )
+[node name="Door" parent="." instance=ExtResource( 5 )]
+position = Vector2( 512, 3.3175 )
 scale = Vector2( 1.5, 1.5 )
+z_index = 1
 
 [node name="PulseTimer" type="Timer" parent="."]
 
@@ -59,19 +64,16 @@ playback/repeat = true
 wait_time = 0.1
 one_shot = true
 
-[node name="QTE" parent="." instance=ExtResource( 5 )]
+[node name="QTE" parent="." instance=ExtResource( 6 )]
 position = Vector2( 59.8444, 43.188 )
 scale = Vector2( 0.4, 0.4 )
-
-[node name="Player" parent="." instance=ExtResource( 6 )]
-position = Vector2( 496.131, 356.636 )
 
 [node name="BulletPath" type="Path2D" parent="."]
 curve = SubResource( 2 )
 
 [node name="BulletSpawnLocation" type="PathFollow2D" parent="BulletPath"]
-position = Vector2( 1019.02, -1.45749 )
-rotation = 1.5648
+position = Vector2( 1022.87, 103.452 )
+rotation = 1.57078
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

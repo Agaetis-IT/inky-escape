@@ -24,7 +24,8 @@ func _ready():
         var sprite = Sprite.new()
         sprite.texture = load("res://assets/sprites/buttons/"+qte[i]+".png")
         sprite.position = Vector2(screen_size.x*i/number_of_button,0)
-        sprite.scale = Vector2(2, 2)
+        sprite.scale = Vector2(4, 4)
+        sprite.z_index=10
         sprites[i] = sprite
         add_child(sprite)
 
