@@ -30,12 +30,13 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="Light" type="Sprite" parent="."]
 modulate = Color( 0.168627, 0.819608, 0.988235, 1 )
-position = Vector2( 516.016, 355.217 )
+position = Vector2( 514.949, 355.217 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 513.837, 356.636 )
+scale = Vector2( 1.7, 1.7 )
 
 [node name="Top Wall" type="StaticBody2D" parent="."]
 z_index = 1
