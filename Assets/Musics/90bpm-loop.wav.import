@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/90bpm-loop.wav-e30ca32c4bc5e39debb30d8545e4377d.sample"
+
+[deps]
+
+source_file="res://Assets/Musics/90bpm-loop.wav"
+dest_files=[ "res://.import/90bpm-loop.wav-e30ca32c4bc5e39debb30d8545e4377d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=true
+compress/mode=0
