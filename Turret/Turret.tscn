@@ -9,37 +9,19 @@
 [node name="Turret" type="StaticBody2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -0.0902252, 16.7261 )
-scale = Vector2( 0.1, 0.1 )
 z_index = 10
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.0472
-scale = Vector2( 6, 6 )
+position = Vector2( 0.108864, 4.46364 )
+scale = Vector2( 2.05043, 2.33682 )
 shape = SubResource( 1 )
 
-[node name="PositionLeft" type="Position2D" parent="."]
-position = Vector2( -3.15113, 3.3762 )
-rotation = 2.637
-script = ExtResource( 2 )
-Bullet = ExtResource( 3 )
-
-[node name="PositionRight" type="Position2D" parent="."]
-position = Vector2( 4.5016, 3.3762 )
-rotation = 0.500013
-script = ExtResource( 2 )
-Bullet = ExtResource( 3 )
-
-[node name="PositionTop" type="Position2D" parent="."]
-position = Vector2( -0.225082, -4.72668 )
-rotation = -1.56768
-scale = Vector2( 1, 1 )
+[node name="Position" type="Position2D" parent="."]
+rotation = -1.5708
 script = ExtResource( 2 )
 Bullet = ExtResource( 3 )
 
 [node name="SpawnTimer" type="Timer" parent="."]
 autostart = true
-[connection signal="timeout" from="SpawnTimer" to="PositionLeft" method="_on_SpawnTimer_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="PositionTop" method="_on_SpawnTimer_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="PositionRight" method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="Position" method="_on_SpawnTimer_timeout"]
