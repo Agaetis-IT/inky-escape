@@ -1,13 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=2]
-[ext_resource path="res://QTE.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Turret/Turret.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Bullet/Bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=3]
+[ext_resource path="res://Door/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://QTE.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Musics/90bpm-loop.wav" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 512, 58.685 )
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1019.02, -1.45749, 0, 0, 0, 0, 1022.63, 601.413, 0, 0, 0, 0, 7.32004, 601.413, 0, 0, 0, 0, 2.80756, -0.554993 )
+}
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
+Bullet = ExtResource( 2 )
+pulse_speed = 0.666
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = 2.90002
@@ -18,9 +30,24 @@ color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 
 [node name="Light" type="Sprite" parent="."]
 modulate = Color( 1, 0.560784, 0, 1 )
-position = Vector2( 512, 300 )
+position = Vector2( 512, 296.39 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
+
+[node name="Top Wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top Wall"]
+position = Vector2( 512, 40 )
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Top Wall"]
+margin_right = 1024.0
+margin_bottom = 100.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Door" parent="." instance=ExtResource( 4 )]
+position = Vector2( 512, 6.3175 )
+scale = Vector2( 1.5, 1.5 )
 
 [node name="PulseTimer" type="Timer" parent="."]
 
@@ -32,13 +59,23 @@ playback/repeat = true
 wait_time = 0.1
 one_shot = true
 
-[node name="QTE" parent="." instance=ExtResource( 3 )]
-position = Vector2( 117.604, 107.266 )
+[node name="QTE" parent="." instance=ExtResource( 5 )]
+position = Vector2( 59.8444, 43.188 )
+scale = Vector2( 0.4, 0.4 )
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 496.131, 356.636 )
 
-[node name="Turret" parent="." instance=ExtResource( 5 )]
-position = Vector2( 639.716, 266.225 )
+[node name="BulletPath" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="BulletSpawnLocation" type="PathFollow2D" parent="BulletPath"]
+position = Vector2( 1019.02, -1.45749 )
+rotation = 1.5648
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
+[connection signal="body_entered" from="Door" to="." method="_on_Door_body_entered"]
 [connection signal="timeout" from="PulseTimer" to="." method="_on_PulseTimer_timeout"]
 [connection signal="timeout" from="PulseTimeTimer" to="." method="_on_PulseTimeTimer_timeout"]
